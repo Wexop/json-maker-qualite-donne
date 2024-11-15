@@ -120,6 +120,7 @@ app.get( "/shape", async ( req: any, res: any ) => {
         "t.trip_id as id",
         "r.route_color as color",
         "t.shape_id",
+        "r.route_type"
       ] )
       .where( "t.direction_id", "=", 0 )
       .groupBy( ["t.shape_id", "t.trip_id", "r.route_id"] )
