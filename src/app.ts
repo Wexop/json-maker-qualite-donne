@@ -103,7 +103,7 @@ app.get( "/shape", async ( req: any, res: any ) => {
       .orderBy( "s.shape_pt_sequence", "asc" )
       .execute()
 
-    const groupedShapes = shapesData.reduce( ( acc, shape ) => {
+    const groupedShapes = shapesData.reduce( ( acc: { [p: string]: any[] }, shape ) => {
       if ( !acc[shape.shape_id] ) acc[shape.shape_id] = []
       acc[shape.shape_id].push( {
         lat: shape.lat,
@@ -130,7 +130,7 @@ app.get( "/shape", async ( req: any, res: any ) => {
     // Associer les `shapes` aux `trips` obtenus
     const tripsWithShapes = trips.map( trip => ({
       ...trip,
-      shapes: groupedShapes[trip.shape_id] || []
+      shapes: groupedShapes[trip.shape_id!] || []
     }) )
 
     res.send( tripsWithShapes )
